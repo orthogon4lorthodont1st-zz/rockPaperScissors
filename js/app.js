@@ -8,24 +8,24 @@ let matrix = [
     [-1,1,0]
 ];
 // when rock, paper or scissors icon is clicked myChoice value is defined as given by the 1st column of matrix
-// the matrix element is calculated by invoking matrixGenerator, which calculates the computers choice
 // (0, 1, 2) == (rock, paper, scissors) randomly
-// calculate winner is then called - this function increments the necessary html element 
-$(function() {
-    $('#rock').click(function() {
-        calculateWinner(matrixGenerator(0));    // myChoice = 0
+let choices = ["#rock", "#paper", "#scissors"];
+let myChoice = [0, 1, 2];
+let myArray = $.merge(choices, myChoice);
+// loop through and target rock paper or scissors and  pass in myChoice by means of myArray
+// no matter which one is clicked, calculate winner is called
+    $(function() {
+        for(let j=0; j<3; j++){
+            $(myArray[j]).click(function() {
+                calculateWinner(matrixGenerator(myArray[j+3]));
+            });
+        }
     });
-    $("#paper").click(function() {          
-        calculateWinner(matrixGenerator(1));    // myChoice = 1
-    });
-    $("#scissors").click(function() {
-        calculateWinner(matrixGenerator(2));    // myChoice = 2 
-    });
-});
+// the matrix element is calculated by invoking matrixGenerator, which calculates the computers choice
 let matrixGenerator = (myChoice) => {
-    return matrix[myChoice][Math.floor(Math.random()*3)];     // GENERATE MATRIX ELEMENT 
+    return matrix[myChoice][Math.floor(Math.random()*3)];    
 }
-let calculateWinner = (matrixValue) => {                                            // IF STATEMENTS TO OUTPUT MESSAGE AND INCREMENT SCORE
+let calculateWinner = (matrixValue) => {                  // the logic of the game
     (matrixValue === 0) ? $("#message").html("tie") : (matrixValue === -1) ? 
     $("#computerscore").html(compScore++) && $("#message").html("Computer wins!") : 
     $("#playerscore").html(myScore++) && $("#message").html("You win!");
