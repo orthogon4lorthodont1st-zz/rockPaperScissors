@@ -1,3 +1,4 @@
+
 let myScore = 1;
 let compScore = 1;
 // matrix denotes Rock, Paper, Scissors along the horizontal and vertically down, respectively
